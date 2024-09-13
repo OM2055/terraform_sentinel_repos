@@ -1,0 +1,16 @@
+# enforce-workspace-name.sentinel
+
+import "tfrun"
+import "tfe"
+
+# Get the workspace name from the current Terraform Cloud run
+workspace_name = tfrun.workspace.name
+
+# Define a naming convention (e.g., all workspace names must start with "team-")
+valid_workspace_name = rule {
+  workspace_name matches "^team-.*"
+}
+
+main = rule {
+  valid_workspace_name
+}
